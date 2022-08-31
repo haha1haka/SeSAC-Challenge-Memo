@@ -23,6 +23,10 @@
 		F4797CD428BF2983002614F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD328BF2983002614F5 /* BaseViewController.swift */; };
 		F4797CD628BF2999002614F5 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD528BF2999002614F5 /* NSObject.swift */; };
 		F4797CD828BF299F002614F5 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD728BF299F002614F5 /* UIViewController.swift */; };
+		F4797CDA28BF2C6E002614F5 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD928BF2C6E002614F5 /* BaseTableViewCell.swift */; };
+		F4797CDD28BF2F3F002614F5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F4797CDC28BF2F3F002614F5 /* SnapKit */; };
+		F4797CE028BF3C9D002614F5 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CDF28BF3C9D002614F5 /* Color.swift */; };
+		F4DB7DB828BF7B940019A93F /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,9 @@
 		F4797CD328BF2983002614F5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F4797CD528BF2999002614F5 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		F4797CD728BF299F002614F5 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F4797CD928BF2C6E002614F5 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		F4797CDF28BF3C9D002614F5 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4797CDD28BF2F3F002614F5 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +94,8 @@
 		F4797CB328BF1F3F002614F5 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				F4DB7DB628BF7B810019A93F /* Components */,
+				F4797CDE28BF3C87002614F5 /* Enum */,
 				F4797CB728BF1F60002614F5 /* Bases */,
 				F4797CB628BF1F57002614F5 /* Extensions */,
 			);
@@ -95,8 +105,8 @@
 		F4797CB428BF1F48002614F5 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				F4797CA128BF1E21002614F5 /* SceneDelegate.swift */,
 				F4797C9F28BF1E21002614F5 /* AppDelegate.swift */,
+				F4797CA128BF1E21002614F5 /* SceneDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -125,6 +135,7 @@
 			children = (
 				F4797CD128BF297B002614F5 /* BaseView.swift */,
 				F4797CD328BF2983002614F5 /* BaseViewController.swift */,
+				F4797CD928BF2C6E002614F5 /* BaseTableViewCell.swift */,
 			);
 			path = Bases;
 			sourceTree = "<group>";
@@ -225,6 +236,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		F4797CDE28BF3C87002614F5 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				F4797CDF28BF3C9D002614F5 /* Color.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		F4DB7DB628BF7B810019A93F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -241,6 +268,9 @@
 			dependencies = (
 			);
 			name = Memo;
+			packageProductDependencies = (
+				F4797CDC28BF2F3F002614F5 /* SnapKit */,
+			);
 			productName = Memo;
 			productReference = F4797C9C28BF1E21002614F5 /* Memo.app */;
 			productType = "com.apple.product-type.application";
@@ -269,6 +299,9 @@
 				Base,
 			);
 			mainGroup = F4797C9328BF1E21002614F5;
+			packageReferences = (
+				F4797CDB28BF2F3F002614F5 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = F4797C9D28BF1E21002614F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -300,11 +333,14 @@
 				F4797CCE28BF295F002614F5 /* detailView.swift in Sources */,
 				F4797CD428BF2983002614F5 /* BaseViewController.swift in Sources */,
 				F4797CA028BF1E21002614F5 /* AppDelegate.swift in Sources */,
+				F4797CDA28BF2C6E002614F5 /* BaseTableViewCell.swift in Sources */,
 				F4797CCC28BF2957002614F5 /* mainView.swift in Sources */,
 				F4797CA228BF1E21002614F5 /* SceneDelegate.swift in Sources */,
 				F4797CD028BF2967002614F5 /* writeView.swift in Sources */,
+				F4797CE028BF3C9D002614F5 /* Color.swift in Sources */,
 				F4797CD828BF299F002614F5 /* UIViewController.swift in Sources */,
 				F4797CC528BF2917002614F5 /* WriteViewController.swift in Sources */,
+				F4DB7DB828BF7B940019A93F /* CustomUITextView.swift in Sources */,
 				F4797CD228BF297B002614F5 /* BaseView.swift in Sources */,
 				F4797CD628BF2999002614F5 /* NSObject.swift in Sources */,
 				F4797CCA28BF294E002614F5 /* MainTableViewCell.swift in Sources */,
@@ -526,6 +562,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F4797CDB28BF2F3F002614F5 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F4797CDC28BF2F3F002614F5 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4797CDB28BF2F3F002614F5 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4797C9428BF1E21002614F5 /* Project object */;
 }
