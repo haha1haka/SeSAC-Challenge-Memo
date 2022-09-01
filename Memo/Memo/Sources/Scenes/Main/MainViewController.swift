@@ -6,17 +6,23 @@
 //
 
 import UIKit
+import RealmSwift
+import SwiftUI
 
-enum Header: String {
+
+
+
+
+
+enum Header: String, CaseIterable {
     case finnedMemo = "고정된 메모"
     case memo = "메모"
 }
 
+
+
+
 class MainViewController: BaseViewController {
-    
-    
-    
-    
     
     let mainView = MainView()
     
@@ -25,51 +31,47 @@ class MainViewController: BaseViewController {
     }
     
     override func configure() {
-        configureSearchController()
-        
-        configureNavigationBar()
-        configureTableView()
         configureToolBar()
-        
+        configureTableView()
+        configureNavigationBar()
+        configureSearchController()
+        print("🟩파일위치 -> \(String(describing: repository.localRealm.configuration.fileURL))")
     }
     
-    var tasks: [String] = [] {
+    
+    let repository = MemoRepository()
+    
+    
+    var fixedMemoObjectArray: Results<Memo>! {
         didSet {
+            print("리로리~♻️ - fixedMemoObjectArray")
             mainView.tableView.reloadData()
+            print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
         }
     }
+    
+    var nonFixedMemoObjectArray: Results<Memo>? {
+        didSet {
+            print("리로리~♻️ - nonFixedMemoObjectArray")
+            mainView.tableView.reloadData()
+            print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
+        }
+    }
+    
+    
+    
+    
+    
 }
-
-
-
-
 
 
 extension MainViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        print("\(tasks)")
-        
+        fixedMemoObjectArray = repository.fetchFilterFixed()
+        nonFixedMemoObjectArray = repository.fetchFilterNonFixed()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        searchController.isActive = false
-        //        searchController.searchBar.becomeFirstResponder()
-        
-        
-        
-    }
-    
-    
-    
 }
-
 
 
 
@@ -81,51 +83,27 @@ extension MainViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.register(MainTableViewCell.self, forCellReuseIdentifier: MainTableViewCell.className)
-        
-        
     }
+    
     
     func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .black
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         self.navigationItem.title = "1123개 메모"
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
-        
-    
     }
     
     
     
-    
-    
-    
-    func configureNavigationBarButtonItem() {
-        
-        
-    }
     func configureSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
-        
-        //searchController.searchBar.delegate = self
-        //searchController.searchResultsUpdater = self
-        //        searchController.hidesNavigationBarDuringPresentation = false
-        //searchController.searchBar.scopeButtonTitles = [SearchBarScope.first.result,SearchBarScope.second.result,SearchBarScope.third.result]
-//        searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.placeholder = "검색"
         self.navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        
     }
-    
-    
-    
-    
     
     
     
@@ -141,18 +119,12 @@ extension MainViewController {
     
     
     
-    
-    
-    
     // MARK: - Write 로 가기
     @objc func writeButtonClicked() {
-        let writeViewController = WriteViewController()
-        writeViewController.writeView.textView.becomeFirstResponder()
-        writeViewController.delegate = self
-        transition(writeViewController, transitionStyle: .push)
+        let detailViewController = DetailViewController()
+        detailViewController.delegate = self
+        transition(detailViewController, transitionStyle: .push)
     }
-    
-    
 }
 
 
@@ -161,40 +133,17 @@ extension MainViewController {
 
 
 
+
+
+
+
+// MARK: - 값전달
 extension MainViewController: WriteTextDelegate {
     func sentText(_ text: String) {
-        tasks.append(text)
+        //        tasks.append(text)
     }
     
 }
-
-
-
-
-
-// MARK: - SearchBar Methods
-//extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
-//    func updateSearchResults(for searchController: UISearchController) {
-//        guard let text = searchController.searchBar.text?.lowercased() else {return}
-//
-//        filterList = diaryTitleList?.filter({
-//            $0.lowercased().contains(text)
-//        })
-//
-//        tableView.reloadData()
-//    }
-//
-//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-//        switch selectedScope {
-//        case SearchBarScope.first.rawValue: searchBar.text = SearchBarScope.first.result
-//        case SearchBarScope.second.rawValue: searchBar.text = SearchBarScope.second.result
-//        case SearchBarScope.third.rawValue: searchBar.text = SearchBarScope.third.result
-//        default: searchBar.text = ""
-//        }
-//    }
-//}
-
-
 
 
 
@@ -213,73 +162,121 @@ extension MainViewController: WriteTextDelegate {
 // MARK: - tableView Methods
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return Header.allCases.count
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
         case 0:
-            return 1
+            return fixedMemoObjectArray.count
         case 1:
-            return tasks.count
+            return nonFixedMemoObjectArray?.count ?? 0
         default:
-            return 1
+            return 0
         }
     }
+    
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.className) as? MainTableViewCell else { return UITableViewCell() }
         
-        //        cell.textLabel?.text =
-        //        cell.backgroundColor = .brown
-        
-        if indexPath.section == 0 {
-            cell.textLabel?.text = "안녕하세요"
-        } else {
-            cell.textLabel?.text = tasks[indexPath.row]
+        switch indexPath.section {
+        case 0:
+            cell.mainLabel.text = fixedMemoObjectArray[indexPath.row].title
+        case 1:
+            cell.mainLabel.text = nonFixedMemoObjectArray?[indexPath.row].title
+        default:
+            break
         }
-        
         
         return cell
     }
+    
+    
+    
+    
     // MARK: - Detail 로 가기
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailViewController()
-//        vc.navigationController?.navigationBar.prefersLargeTitles = false
-        vc.detailView.textView.text = tasks[indexPath.row]
+        
+        
+        switch indexPath.section {
+        case 0:
+            vc.memoObject = fixedMemoObjectArray[indexPath.row]
+        case 1:
+            vc.memoObject = nonFixedMemoObjectArray?[indexPath.row]
+        default:
+            break
+        }
+        
         transition(vc,transitionStyle: .push)
+        
     }
-    
-    
-    
-    
-    
-    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //
-    //        switch editingStyle {
-    //        case .delete:
-    ////            try! localRealm.write {
-    ////                localRealm.delete(objectArray[indexPath.row])
-    ////                objectArray = fetchRealm()
-    ////            }
-    //        default: break
-    //        }
-    //    }
     
     
     
     
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let pin = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
+        
+    
+        switch indexPath.section {
+        case 0:
             
+            let slashPin = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
+                
+                self.repository.updatePin(updateObject: self.fixedMemoObjectArray[indexPath.row], isFiexd: false)
+            }
+            mainView.tableView.reloadData()
+            
+            slashPin.image = UIImage(systemName: "pin.slash.fill")
+            slashPin.backgroundColor = .systemOrange
+            
+            return UISwipeActionsConfiguration(actions: [slashPin])
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        case 1:
+            
+            
+            let pin = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
+                
+                guard let unWrapedNewNonFixedObjectArray = self.nonFixedMemoObjectArray else { return }
+                self.repository.updatePin(updateObject: unWrapedNewNonFixedObjectArray[indexPath.row], isFiexd: true)
+                
+            }
+            mainView.tableView.reloadData()
+            pin.image = UIImage(systemName: "pin.fill")
+            pin.backgroundColor = .systemOrange
+            
+            return UISwipeActionsConfiguration(actions: [pin])
+            
+            
+        default:
+            break
         }
         
-        pin.image = UIImage(systemName: "pin.fill")
-        pin.backgroundColor = .systemOrange
         
-        return UISwipeActionsConfiguration(actions: [pin])
+        
+        return nil
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -294,7 +291,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-
+    
     
     
     
