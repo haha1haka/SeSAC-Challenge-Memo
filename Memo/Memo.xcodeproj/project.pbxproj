@@ -279,17 +279,17 @@
 			isa = PBXGroup;
 			children = (
 				F4DB7DC228BFACCB0019A93F /* IntroViewController.swift */,
-				F4DB7DC428BFACD10019A93F /* VIews */,
+				F4DB7DC428BFACD10019A93F /* Views */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
 		};
-		F4DB7DC428BFACD10019A93F /* VIews */ = {
+		F4DB7DC428BFACD10019A93F /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				F4DB7DC528BFACDE0019A93F /* IntroView.swift */,
 			);
-			path = VIews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F4DB7DC728BFB18B0019A93F /* Manager */ = {

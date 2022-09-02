@@ -48,19 +48,3 @@ class MainView: BaseView {
 
 
 
-enum SearchBarScope: Int {
-    case first
-    case second
-    case third
-    
-    var result: String {
-        switch self {
-        case .first:
-            return "일기"
-        case .second:
-            return "과제"
-        case .third:
-            return "애플"
-        }
-    }
-}

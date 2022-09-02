@@ -11,6 +11,66 @@ import SwiftUI
 
 
 
+//print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
+//print("🟩파일위치 -> \(String(describing: repository.localRealm.configuration.fileURL))")
+
+//switch section {
+//case 0:
+//    return fixedMemoObjectArray.count
+//case 1:
+//    return nonFixedMemoObjectArray?.count ?? 0
+//default:
+//    return 0
+//}
+
+
+//if !(totalMemoObjectArray?[indexPath.row].isFixed ?? true) {
+//    //true
+//    cell.mainLabel.text = fixedMemoObjectArray[indexPath.row].title
+//    cell.dateLabel.text = fixedMemoObjectArray[indexPath.row].content
+//    return cell
+//} else {
+//    //false
+//    cell.mainLabel.text = nonFixedMemoObjectArray?[indexPath.row].title
+//    cell.dateLabel.text = nonFixedMemoObjectArray?[indexPath.row].content
+//    return cell
+//    //
+//    //        }
+//
+//
+//
+//
+//    //        switch indexPath.section {
+//    //        case 0:
+//    //            cell.mainLabel.text = fixedMemoObjectArray[indexPath.row].title
+//    //            cell.dateLabel.text = fixedMemoObjectArray[indexPath.row].content
+//    //        case 1:
+//    //            cell.mainLabel.text = nonFixedMemoObjectArray?[indexPath.row].title
+//    //            cell.dateLabel.text = nonFixedMemoObjectArray?[indexPath.row].content
+//    //        default:
+//    //            break
+//    //        }
+//    //
+//
+//}
+
+
+
+//        switch indexPath.section {
+//        case 0:
+//            let fixedObject = fixedMemoObjectArray[indexPath.row]
+//            vc.memoObject = fixedObject
+//            vc.detailView.textView.text = fixedObject.content
+//
+//        case 1:
+//            let nonFixedbject = nonFixedMemoObjectArray?[indexPath.row]
+//            vc.memoObject = nonFixedbject
+//            vc.detailView.textView.text = nonFixedbject?.content
+//        default:
+//            break
+//        }
+//
+//        transition(vc,transitionStyle: .push)
 
 
 
@@ -35,43 +95,35 @@ class MainViewController: BaseViewController {
         configureTableView()
         configureNavigationBar()
         configureSearchController()
-        print("🟩파일위치 -> \(String(describing: repository.localRealm.configuration.fileURL))")
     }
     
     
     let repository = MemoRepository()
     
+    var totalMemoObjectArray: Results<Memo>!
     
-    var fixedMemoObjectArray: Results<Memo>! {
-        didSet {
-            print("리로리~♻️ - fixedMemoObjectArray")
-            mainView.tableView.reloadData()
-            print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
-        }
-    }
+    var fixedMemoObjectArray: Results<Memo>!
     
-    var nonFixedMemoObjectArray: Results<Memo>? {
-        didSet {
-            print("리로리~♻️ - nonFixedMemoObjectArray")
-            mainView.tableView.reloadData()
-            print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
-        }
-    }
-    
+    var nonFixedMemoObjectArray: Results<Memo>!
     
     
     
     
 }
+
+
+
 
 
 extension MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fixedMemoObjectArray = repository.fetchFilterFixed()
-        nonFixedMemoObjectArray = repository.fetchFilterNonFixed()
+//        fixedMemoObjectArray = repository.fetchFilterFixed()
+//        nonFixedMemoObjectArray = repository.fetchFilterNonFixed()
     }
 }
+
+
 
 
 
@@ -122,7 +174,7 @@ extension MainViewController {
     // MARK: - Write 로 가기
     @objc func writeButtonClicked() {
         let detailViewController = DetailViewController()
-        detailViewController.delegate = self
+        
         transition(detailViewController, transitionStyle: .push)
     }
 }
@@ -130,20 +182,6 @@ extension MainViewController {
 
 
 
-
-
-
-
-
-
-
-// MARK: - 값전달
-extension MainViewController: WriteTextDelegate {
-    func sentText(_ text: String) {
-        //        tasks.append(text)
-    }
-    
-}
 
 
 
@@ -167,51 +205,40 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-        case 0:
-            return fixedMemoObjectArray.count
-        case 1:
-            return nonFixedMemoObjectArray?.count ?? 0
-        default:
-            return 0
-        }
+
     }
     
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.className) as? MainTableViewCell else { return UITableViewCell() }
         
-        switch indexPath.section {
-        case 0:
-            cell.mainLabel.text = fixedMemoObjectArray[indexPath.row].title
-        case 1:
-            cell.mainLabel.text = nonFixedMemoObjectArray?[indexPath.row].title
-        default:
-            break
-        }
         
-        return cell
+        
+        
+
+        
+        
     }
-    
-    
     
     
     // MARK: - Detail 로 가기
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        
-        
-        switch indexPath.section {
-        case 0:
-            vc.memoObject = fixedMemoObjectArray[indexPath.row]
-        case 1:
-            vc.memoObject = nonFixedMemoObjectArray?[indexPath.row]
-        default:
-            break
-        }
-        
-        transition(vc,transitionStyle: .push)
+//        let vc = DetailViewController()
+//        
+//        
+//        switch indexPath.section {
+//        case 0:
+//            vc.memoObject = fixedMemoObjectArray[indexPath.row]
+//        case 1:
+//            vc.memoObject = nonFixedMemoObjectArray?[indexPath.row]
+//        default:
+//            break
+//        }
+//        
+//        transition(vc,transitionStyle: .push)
         
     }
     
@@ -221,15 +248,17 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-    
+        
         switch indexPath.section {
         case 0:
-            
-            let slashPin = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
-                
+            let slashPin = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
                 self.repository.updatePin(updateObject: self.fixedMemoObjectArray[indexPath.row], isFiexd: false)
             }
-            mainView.tableView.reloadData()
+            
+            
+            
+            
+            tableView.reloadData()
             
             slashPin.image = UIImage(systemName: "pin.slash.fill")
             slashPin.backgroundColor = .systemOrange
@@ -237,23 +266,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return UISwipeActionsConfiguration(actions: [slashPin])
             
             
-            
-            
-            
-            
-            
-            
-            
         case 1:
-            
-            
-            let pin = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
-                
+            let pin = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
                 guard let unWrapedNewNonFixedObjectArray = self.nonFixedMemoObjectArray else { return }
                 self.repository.updatePin(updateObject: unWrapedNewNonFixedObjectArray[indexPath.row], isFiexd: true)
-                
             }
-            mainView.tableView.reloadData()
+            
+            
+            
             pin.image = UIImage(systemName: "pin.fill")
             pin.backgroundColor = .systemOrange
             
@@ -279,6 +299,25 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "즐겨찾기") { action, view, completionHandler in
             
@@ -289,15 +328,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         return UISwipeActionsConfiguration(actions: [delete])
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

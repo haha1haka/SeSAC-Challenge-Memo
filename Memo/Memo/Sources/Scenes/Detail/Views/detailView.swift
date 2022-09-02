@@ -11,7 +11,7 @@ import SnapKit
 class DetailView: BaseView {
     
     
-    let textView = CustomUITextView()
+    var textView = CustomUITextView()
 
     
     override func configure() {
