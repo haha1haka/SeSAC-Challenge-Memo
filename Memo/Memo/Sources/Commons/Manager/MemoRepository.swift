@@ -10,9 +10,9 @@ import RealmSwift
 
 protocol MemoRepositoryType {
     func fetch() -> Results<Memo>
-    func fetchFilterFixed() -> Results<Memo>
-    func fetchFilterNonFixed() -> Results<Memo>
-    func fetchDate(date: Date) -> Results<Memo>
+//    func fetchFilterFixed() -> Results<Memo>
+//    func fetchFilterNonFixed() -> Results<Memo>
+//    func fetchDate(date: Date) -> Results<Memo>
 }
 
 
@@ -23,7 +23,7 @@ class MemoRepository: MemoRepositoryType {
     let localRealm = try! Realm()
     
     
-    
+// MARK: - Create, Update
     
     // MARK: - add
     func addObject(newObject: Memo) {
@@ -41,36 +41,48 @@ class MemoRepository: MemoRepositoryType {
     
     
     
-    // MARK: - 패치
+    
+    
+    
+// MARK: - 패치
+
+    
+
+    // MARK: - 패치(날짜별로)
     func fetch() -> Results<Memo> {
-        return localRealm.objects(Memo.self)
-    }
-    
-    // MARK: - 고정
-    func fetchFilterFixed() -> Results<Memo> {
-        return localRealm.objects(Memo.self).filter("isFixed == true").sorted(byKeyPath: "date", ascending: false)
-    }
-    
-    // MARK: - 고정안됨
-    func fetchFilterNonFixed() -> Results<Memo> {
-        return localRealm.objects(Memo.self).filter("isFixed == false").sorted(byKeyPath: "date", ascending: false)
+        return localRealm.objects(Memo.self).sorted(byKeyPath: "date", ascending: false)
     }
     
     
+    // MARK: - 패치필터(고정,비고정)
+    func fetchFilter(in object: Results<Memo>, isFixed: Bool) -> Results<Memo> {
+        return object.filter("isFixed == \(isFixed)").sorted(byKeyPath: "date", ascending: false)
+    }
+    
+    
+    // MARK: - 패치필터(검색)
+    func fetchFilterSearchedText(in object: Results<Memo>, text: String) -> Results<Memo> {
+        return object.filter("content  CONTAINS[c] '\(text)'").sorted(byKeyPath: "date", ascending: false)
+    }
+
     
     
     
     
     
+    
+    
+    
+
     
     
     
     
     // date: 22/08//26 00분 00초 가 들어옴
-    func fetchDate(date: Date) -> Results<Memo> {
-        // %@ --> NSPredicate문법
-        return localRealm.objects(Memo.self).filter("diaryDate >= %@ AND diaryDate < %@", date, Date(timeInterval: 86400, since: date))
-    }
+    //func fetchDate(date: Date) -> Results<Memo> {
+    //    // %@ --> NSPredicate문법
+    //    return localRealm.objects(Memo.self).filter("diaryDate >= %@ AND diaryDate < %@", date, Date(timeInterval: 86400, since: date))
+    //}
     
     
     

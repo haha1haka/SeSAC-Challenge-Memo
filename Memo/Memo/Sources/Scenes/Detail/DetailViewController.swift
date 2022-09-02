@@ -24,7 +24,7 @@ class DetailViewController: BaseViewController {
         self.view = detailView
     }
     
-    var delegate: WriteTextDelegate?
+
     
     override func configure() {
         detailView.textView.becomeFirstResponder()
