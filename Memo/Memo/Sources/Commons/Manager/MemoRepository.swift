@@ -37,6 +37,13 @@ class MemoRepository: MemoRepositoryType {
             updateObject.isFixed = isFiexd
         }
     }
+    // MARK: - update(게시글 수정)
+    func updatePost(updateObject: Memo, title: String, content: String) {
+        try! localRealm.write {
+            updateObject.title = title
+            updateObject.content = content
+        }
+    }
     
     
     
@@ -62,7 +69,7 @@ class MemoRepository: MemoRepositoryType {
     
     // MARK: - 패치필터(검색)
     func fetchFilterSearchedText(in object: Results<Memo>, text: String) -> Results<Memo> {
-        return object.filter("content  CONTAINS[c] '\(text)'").sorted(byKeyPath: "date", ascending: false)
+        return object.filter("content  CONTAINS[c] '\(text)' OR title CONTAINS[c]  '\(text)'").sorted(byKeyPath: "date", ascending: false)
     }
 
     

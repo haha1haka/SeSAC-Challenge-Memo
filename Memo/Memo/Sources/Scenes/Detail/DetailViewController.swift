@@ -30,7 +30,7 @@ class DetailViewController: BaseViewController {
         detailView.textView.becomeFirstResponder()
         configureNavigationBar()
         configureNavigationBarButtonItem()
-        
+        configureData()
     }
     
     let repository = MemoRepository()
@@ -44,14 +44,16 @@ class DetailViewController: BaseViewController {
 
 // MARK: - configure Methods
 extension DetailViewController {
+    
+    func configureData() {
+        guard let titleText = memoObject?.title else { return }
+        guard let contentText = memoObject?.content else { return }
+        detailView.textView.text = "\(titleText)\n\(contentText)"
+    }
+    
     func configureNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
-    
-
-    
-    
-    
     
     func configureNavigationBarButtonItem() {
         let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonClicked))
@@ -59,6 +61,11 @@ extension DetailViewController {
         let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonClicked))
         navigationItem.rightBarButtonItems = [completeButton, shareButton]
     }
+    
+    
+    
+    
+    
     
     
     // MARK: - 저장버튼(1. didSelect로 왔을때(수정), 2. Write로 왔을때(작성)): 1번일경우 수정(update), 2번일경우 작성(add)
@@ -81,33 +88,23 @@ extension DetailViewController {
             //처음 기본 값 false 잊지말자
             repository.addObject(newObject: Memo(title: mainTitle, content: mainContent, date: Date()))
             
+            
         // MARK: - 수정 --> Update
         } else {
         
-            try! repository.localRealm.write {
-                memoObject?.title = mainTitle
-                memoObject?.content = mainContent
-            }
+            //try! repository.localRealm.write {
+            //   memoObject?.title = mainTitle
+            //    memoObject?.content = mainContent
+            //}
+            repository.updatePost(updateObject: memoObject!, title: mainTitle, content: mainContent)
         }
         
-        
-
-        
-
         navigationController?.popViewController(animated: true)
     }
     
     @objc func shareButtonClicked() {
         //액치비티 고고 ㄱㄷㄱㄷ
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 

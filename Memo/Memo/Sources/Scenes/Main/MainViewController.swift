@@ -77,8 +77,8 @@ enum CellStatus: Int, CaseIterable {
     case nonFixed
 }
 
-
 enum Header: String, CaseIterable {
+    //    case searchingMemo = "찾으시는 메모"
     case fixedMemo = "고정된 메모"
     case nonFixedMemo = "메모"
 }
@@ -95,18 +95,22 @@ class MainViewController: BaseViewController {
     }
     
     override func configure() {
+        print("🟩파일위치 -> \(String(describing: repository.localRealm.configuration.fileURL))")
         configureUITableView()
         configureUINavigationBar()
         configureUISearchController()
         configureUIToolBar()
+        checkIntroScene()
     }
     
     let repository = MemoRepository()
     
     var totalMemoObjectArray: Results<Memo>! {
         didSet {
+            self.navigationItem.title = "\(totalMemoObjectArray.count)개의 메모"
             fixedMemoObjectArray = repository.fetchFilter(in: totalMemoObjectArray, isFixed: true)
             nonFixedMemoObjectArray = repository.fetchFilter(in: totalMemoObjectArray, isFixed: false)
+            print("현재 object 갯수👉🏻 \(repository.localRealm.objects(Memo.self))")
         }
     }
     
@@ -132,6 +136,7 @@ extension MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         totalMemoObjectArray = repository.fetch()
+        mainView.tableView.reloadData()
     }
 }
 
@@ -158,7 +163,7 @@ extension MainViewController {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .black
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        self.navigationItem.title = "1123개 메모"
+//        self.navigationItem.title = "1123개 메모"
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
     }
@@ -183,10 +188,22 @@ extension MainViewController {
         self.toolbarItems = [flexibleSpace, writeButton]
     }
     
-    // MARK: - Write 로 가기
     @objc func writeButtonClicked() {
-        let detailViewController = DetailViewController()
-        transition(detailViewController, transitionStyle: .push)
+        let vc = DetailViewController()
+        transition(vc, transitionStyle: .push)
+    }
+    
+    func checkIntroScene() {
+        //        if !UserDefaults.standard.bool(forKey: "isIntro") {
+        //            UserDefaults.standard.set(true, forKey: "isIntro")
+        //
+        //        }
+        
+        //⭐️이거 위에 심어주기 마지막 제출 전에 하기
+        let vc = IntroViewController()
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overFullScreen
+        transition(vc, transitionStyle: .present)
     }
 }
 
@@ -224,11 +241,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if isFiltering {
-            if fixedMemoObjectArray.count < 0 {
-                return 0
-            } else {
-                return 1
-            }
+            return 1
             
         } else {
             return Header.allCases.count
@@ -245,7 +258,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         if isFiltering {
             return searchedMemoObjectArray?.count ?? 0
         } else {
-            if fixedMemoObjectArray.count < 0 {
+            if fixedMemoObjectArray.count <= 0 {
                 return nonFixedMemoObjectArray.count
             } else {
                 switch cellStatus {
@@ -272,16 +285,20 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         if isFiltering {
             cell.mainLabel.text = searchedMemoObjectArray?[indexPath.row].title
+            cell.dateLabel.text = searchedMemoObjectArray?[indexPath.row].content
         } else {
-            if fixedMemoObjectArray.count < 0 {
+            if fixedMemoObjectArray.count <= 0 {
                 cell.mainLabel.text = nonFixedMemoObjectArray[indexPath.row].title
+                cell.dateLabel.text = nonFixedMemoObjectArray?[indexPath.row].content
             } else {
                 switch cellStatus {
                 case .fixed:
                     cell.mainLabel.text = fixedMemoObjectArray[indexPath.row].title
+                    cell.dateLabel.text = fixedMemoObjectArray?[indexPath.row].content
                     
                 case .nonFixed:
                     cell.mainLabel.text = nonFixedMemoObjectArray[indexPath.row].title
+                    cell.dateLabel.text = nonFixedMemoObjectArray?[indexPath.row].content
                 }
             }
         }
@@ -336,11 +353,28 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         let pin = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
             
-            if self.fixedMemoObjectArray.count >= 5 && self.totalMemoObjectArray[indexPath.row].isFixed == false {
-                self.showAlertMessage(title: "메모 5개 초과")
+            let currentMemoObject: Memo?
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            if self.fixedMemoObjectArray.count > 5 {
+                if self.totalMemoObjectArray[indexPath.row].isFixed == true {
+                    self.showAlertMessage(title: "메모 5개 초과")
+//                    return
+                }
+                
+
             }
             
-            if self.fixedMemoObjectArray.count == 0 {
+            if self.fixedMemoObjectArray.count <= 0 {
                 self.repository.updatePin(updateObject: self.nonFixedMemoObjectArray[indexPath.row], isFiexd: true)
             } else {
                 switch cellStatus {
@@ -350,6 +384,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                     self.repository.updatePin(updateObject: self.nonFixedMemoObjectArray[indexPath.row], isFiexd: true)
                 }
             }
+            
+            
+            
+            
+            
+            
+            
             //업데이트 후 패치 -> 리로드
             self.totalMemoObjectArray = self.repository.fetch()
             self.mainView.tableView.reloadData()
@@ -372,7 +413,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-
+        
         
         
         pin.backgroundColor = .systemOrange
@@ -380,23 +421,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: [pin])
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -437,12 +461,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cellStatus = CellStatus.allCases[section]
         
+        
         switch cellStatus {
         case .fixed:
             return Header.fixedMemo.rawValue
         case .nonFixed:
             return Header.nonFixedMemo.rawValue
         }
+        
+        
+        
         
     }
     

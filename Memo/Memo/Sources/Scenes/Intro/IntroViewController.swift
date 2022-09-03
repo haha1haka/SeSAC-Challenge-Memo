@@ -15,5 +15,15 @@ class IntroViewController: BaseViewController {
     }
     
     override func configure() {
+        introView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        introView.button.addTarget(self, action: #selector(startButtonCliked), for: .touchUpInside)
+    }
+}
+
+// MARK: - Methods
+extension IntroViewController {
+    @objc func startButtonCliked() {
+        self.dismiss(animated: true)
+        
     }
 }
