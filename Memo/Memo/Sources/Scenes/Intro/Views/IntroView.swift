@@ -10,33 +10,28 @@ import SnapKit
 
 class IntroView: BaseView {
     
-//    let lootView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-//        return view
-//    }()
     
     let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 27/255, green: 27/255, blue: 27/255, alpha: 1)
+        view.backgroundColor = COLOR_BRANDI_PRIMARY
         view.layer.cornerRadius = 30
         view.layer.masksToBounds = true
         return view
     }()
     
 
-    let stackView: UIStackView = {
-        let view = UIStackView()
-        view.spacing = 12
-        view.axis = .vertical
-        view.backgroundColor = .clear
-//        view.distribution = .
-        return view
-    }()
+//    let stackView: UIStackView = {
+//        let view = UIStackView()
+//        view.spacing = 12
+//        view.axis = .vertical
+//        view.backgroundColor = .clear
+////        view.distribution = .
+//        return view
+//    }()
     
-    let textView: UITextView = {
-        let view = UITextView()
-        view.backgroundColor = .clear
+    let label: UILabel = {
+        let view = UILabel()
+        
         
         view.text = """
                     처음 오셨군요!
@@ -45,8 +40,9 @@ class IntroView: BaseView {
                     당신만의 메모를 작성하고
                     관리해보세요!
                     """
+        view.numberOfLines = 0
         view.font = .systemFont(ofSize: 25, weight: .bold)
-        view.textColor = .white
+        view.textColor = .label
         return view
     }()
     
@@ -67,32 +63,32 @@ class IntroView: BaseView {
     
     
     override func configure() {
-//        self.addSubview(lootView)
         self.addSubview(containerView)
-        containerView.addSubview(stackView)
-        [textView, button].forEach { stackView.addArrangedSubview($0) }
+//        containerView.addSubview(stackView)
+        [label, button].forEach { self.addSubview($0) }
     }
     
     override func setConstraints() {
-//        lootView.snp.makeConstraints {
-//            $0.edges.equalTo(self)
-//        }
+
         containerView.snp.makeConstraints {
             $0.width.height.equalTo(300)
             $0.center.equalToSuperview()
         }
         
-        stackView.snp.makeConstraints {
-            $0.edges.equalTo(containerView).inset(10)
-        }
-        textView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(containerView).inset(20)
-            $0.height.equalTo(100)
+//        stackView.snp.makeConstraints {
+//            $0.edges.equalTo(containerView).inset(10)
+//        }
+        
+        label.snp.makeConstraints {
+            $0.top.equalTo(containerView).offset(10)
+            $0.leading.trailing.equalTo(containerView).inset(20)
+            $0.bottom.equalTo(button.snp.top).offset(-10)
+//            $0.height.equalTo(100)
         }
         button.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(20)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(stackView).inset(20)
+            $0.leading.equalTo(containerView).inset(20)
+            $0.trailing.equalTo(containerView).inset(20)
+            $0.bottom.equalTo(containerView).offset(-25)
             $0.height.equalTo(55)
         }
         

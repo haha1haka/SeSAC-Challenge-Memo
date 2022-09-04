@@ -20,7 +20,6 @@ class DetailViewController: BaseViewController {
     let detailView = DetailView()
     
     override func loadView() {
-        
         self.view = detailView
     }
     
@@ -28,9 +27,9 @@ class DetailViewController: BaseViewController {
     
     override func configure() {
         detailView.textView.becomeFirstResponder()
+        configureData()
         configureNavigationBar()
         configureNavigationBarButtonItem()
-        configureData()
     }
     
     let repository = MemoRepository()
@@ -40,6 +39,11 @@ class DetailViewController: BaseViewController {
     var mainTitle = ""
     var mainContent = ""
 }
+
+
+
+
+
 
 
 // MARK: - configure Methods
@@ -52,7 +56,16 @@ extension DetailViewController {
     }
     
     func configureNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
+//        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = COLOR_BRANDI_PRIMARY
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
+        appearance.shadowColor = .clear
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
     }
     
     func configureNavigationBarButtonItem() {
@@ -61,10 +74,6 @@ extension DetailViewController {
         let shareButton = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(shareButtonClicked))
         navigationItem.rightBarButtonItems = [completeButton, shareButton]
     }
-    
-    
-    
-    
     
     
     
@@ -80,22 +89,11 @@ extension DetailViewController {
         mainTitle = titleText
         mainContent = contentText
         
-        
-        
-        
         // MARK: - 작성 --> add
         if memoObject == nil {
-            //처음 기본 값 false 잊지말자
             repository.addObject(newObject: Memo(title: mainTitle, content: mainContent, date: Date()))
-            
-            
         // MARK: - 수정 --> Update
         } else {
-        
-            //try! repository.localRealm.write {
-            //   memoObject?.title = mainTitle
-            //    memoObject?.content = mainContent
-            //}
             repository.updatePost(updateObject: memoObject!, title: mainTitle, content: mainContent)
         }
         
@@ -103,8 +101,20 @@ extension DetailViewController {
     }
     
     @objc func shareButtonClicked() {
-        //액치비티 고고 ㄱㄷㄱㄷ
+
+        guard let text = detailView.textView.text else { return }
+        
+        var shareObject: [String] = []
+        
+        shareObject.append(text)
+        
+        let activityViewController = UIActivityViewController(activityItems : shareObject, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook,UIActivity.ActivityType.postToTwitter,UIActivity.ActivityType.mail]
+        
+        self.present(activityViewController, animated: true, completion: nil)
+        
     }
-    
 }
 

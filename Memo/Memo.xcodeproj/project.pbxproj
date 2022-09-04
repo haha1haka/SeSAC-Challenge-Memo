@@ -14,11 +14,9 @@
 		F4797CAC28BF1E22002614F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4797CAA28BF1E22002614F5 /* LaunchScreen.storyboard */; };
 		F4797CC128BF2903002614F5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CC028BF2903002614F5 /* MainViewController.swift */; };
 		F4797CC328BF290F002614F5 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CC228BF290F002614F5 /* DetailViewController.swift */; };
-		F4797CC528BF2917002614F5 /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CC428BF2917002614F5 /* WriteViewController.swift */; };
 		F4797CCA28BF294E002614F5 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CC928BF294E002614F5 /* MainTableViewCell.swift */; };
 		F4797CCC28BF2957002614F5 /* mainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CCB28BF2957002614F5 /* mainView.swift */; };
 		F4797CCE28BF295F002614F5 /* detailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CCD28BF295F002614F5 /* detailView.swift */; };
-		F4797CD028BF2967002614F5 /* writeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CCF28BF2967002614F5 /* writeView.swift */; };
 		F4797CD228BF297B002614F5 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD128BF297B002614F5 /* BaseView.swift */; };
 		F4797CD428BF2983002614F5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD328BF2983002614F5 /* BaseViewController.swift */; };
 		F4797CD628BF2999002614F5 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4797CD528BF2999002614F5 /* NSObject.swift */; };
@@ -45,11 +43,9 @@
 		F4797CAD28BF1E22002614F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4797CC028BF2903002614F5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F4797CC228BF290F002614F5 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		F4797CC428BF2917002614F5 /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		F4797CC928BF294E002614F5 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		F4797CCB28BF2957002614F5 /* mainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainView.swift; sourceTree = "<group>"; };
 		F4797CCD28BF295F002614F5 /* detailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailView.swift; sourceTree = "<group>"; };
-		F4797CCF28BF2967002614F5 /* writeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = writeView.swift; sourceTree = "<group>"; };
 		F4797CD128BF297B002614F5 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		F4797CD328BF2983002614F5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F4797CD528BF2999002614F5 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
@@ -131,7 +127,6 @@
 				F4DB7DC128BFACBB0019A93F /* Intro */,
 				F4797CBD28BF28E5002614F5 /* Main */,
 				F4797CBE28BF28EE002614F5 /* Detail */,
-				F4797CBF28BF28F4002614F5 /* Write */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -217,15 +212,6 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		F4797CBF28BF28F4002614F5 /* Write */ = {
-			isa = PBXGroup;
-			children = (
-				F4797CC428BF2917002614F5 /* WriteViewController.swift */,
-				F4797CC828BF2935002614F5 /* Views */,
-			);
-			path = Write;
-			sourceTree = "<group>";
-		};
 		F4797CC628BF2923002614F5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,14 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				F4797CCD28BF295F002614F5 /* detailView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		F4797CC828BF2935002614F5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				F4797CCF28BF2967002614F5 /* writeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -387,11 +365,9 @@
 				F4797CDA28BF2C6E002614F5 /* BaseTableViewCell.swift in Sources */,
 				F4797CCC28BF2957002614F5 /* mainView.swift in Sources */,
 				F4797CA228BF1E21002614F5 /* SceneDelegate.swift in Sources */,
-				F4797CD028BF2967002614F5 /* writeView.swift in Sources */,
 				F4797CE028BF3C9D002614F5 /* Color.swift in Sources */,
 				F4DB7DC328BFACCB0019A93F /* IntroViewController.swift in Sources */,
 				F4797CD828BF299F002614F5 /* UIViewController.swift in Sources */,
-				F4797CC528BF2917002614F5 /* WriteViewController.swift in Sources */,
 				F4DB7DB828BF7B940019A93F /* CustomUITextView.swift in Sources */,
 				F4DB7DC928BFB1AD0019A93F /* MemoRepository.swift in Sources */,
 				F4DB7DC628BFACDE0019A93F /* IntroView.swift in Sources */,

@@ -10,6 +10,7 @@ class BaseView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = COLOR_BRANDI_PRIMARY
         configure()
         setConstraints()
     }

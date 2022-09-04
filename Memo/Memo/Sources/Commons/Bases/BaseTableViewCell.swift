@@ -11,6 +11,7 @@ class BaseTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        self.backgroundColor = .systemRed
         configure()
         setConstraints()
     }
@@ -19,7 +20,9 @@ class BaseTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure() { }
+    func configure() {
+        
+    }
         
     
     

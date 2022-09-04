@@ -23,7 +23,7 @@ class MemoRepository: MemoRepositoryType {
     let localRealm = try! Realm()
     
     
-// MARK: - Create, Update
+// MARK: - Create, Update, Delete
     
     // MARK: - add
     func addObject(newObject: Memo) {
@@ -42,6 +42,14 @@ class MemoRepository: MemoRepositoryType {
         try! localRealm.write {
             updateObject.title = title
             updateObject.content = content
+        }
+    }
+    
+    // MARK: - Delete
+    
+    func deletePost(deletedObject: Memo) {
+        try! localRealm.write {
+            localRealm.delete(deletedObject)
         }
     }
     

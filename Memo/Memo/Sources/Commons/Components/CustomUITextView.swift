@@ -20,8 +20,9 @@ class CustomUITextView: UITextView {
     
     
     func setUI() {
-        backgroundColor = .black
-        textColor = .white
+        backgroundColor = COLOR_BRANDI_PRIMARY
+        textColor = .label
+        tintColor = Color.memoYellow
         font = .systemFont(ofSize: 22, weight: .regular)
     }
 }

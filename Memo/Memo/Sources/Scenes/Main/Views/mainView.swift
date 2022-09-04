@@ -14,8 +14,8 @@ class MainView: BaseView {
     
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .insetGrouped)
-        view.backgroundColor = .black
-        view.rowHeight = 44
+        view.backgroundColor = COLOR_BRANDI_PRIMARY
+        view.rowHeight = 54
         return view
     }()
 
@@ -25,7 +25,7 @@ class MainView: BaseView {
     
     
     override func configure() {
-
+        
         [tableView].forEach { self.addSubview($0) }
     }
     

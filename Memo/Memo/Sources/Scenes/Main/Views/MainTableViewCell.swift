@@ -12,17 +12,24 @@ class MainTableViewCell: BaseTableViewCell {
     
     
     
-    let mainLabel: UILabel = {
+    
+    
+    lazy var mainLabel: UILabel = {
         let view = UILabel()
-        
-        view.backgroundColor = .red
+        view.font = .systemFont(ofSize: 20, weight: .bold)
         return view
     }()
     
-    let dateLabel: UILabel = {
+    lazy var dateLabel: UILabel = {
+        let view = UILabel()
+        view.font = .systemFont(ofSize: 14, weight: .regular)
+        view.textColor = .lightGray
+        return view
+    }()
+    
+    lazy var contentLabel: UILabel = {
        let view = UILabel()
         view.font = .systemFont(ofSize: 12, weight: .regular)
-        view.backgroundColor = .orange
         return view
     }()
     
@@ -30,7 +37,7 @@ class MainTableViewCell: BaseTableViewCell {
     
     override func configure() {
         
-        [mainLabel, dateLabel].forEach { contentView.addSubview($0)}
+        [mainLabel, dateLabel, contentLabel].forEach { contentView.addSubview($0)}
     }
 
 
@@ -40,19 +47,29 @@ class MainTableViewCell: BaseTableViewCell {
 
 
     override func setConstraints() {
+        
+        
         mainLabel.snp.makeConstraints {
-            $0.top.equalTo(contentView.snp.top)
-            $0.leading.equalTo(contentView.snp.leading)
-            $0.trailing.equalTo(contentView.snp.trailing)
-            $0.height.equalTo(self.snp.height).dividedBy(1.5)
+            $0.top.equalTo(self)
+            $0.leading.equalTo(self).offset(10)
+            $0.trailing.equalTo(self).offset(-10)
+            $0.height.equalTo(self.snp.height).dividedBy(1.7)
+        }
+        
+        dateLabel.snp.makeConstraints {
+            $0.leading.equalTo(self).offset(10)
+            $0.trailing.equalTo(contentLabel.snp.leading).priority(999)
+            $0.bottom.equalTo(self)
+            $0.top.equalTo(mainLabel.snp.bottom)
         }
         
         
-        dateLabel.snp.makeConstraints {
-            $0.bottom.equalTo(contentView.snp.bottom)
-            $0.leading.equalTo(contentView.snp.leading)
-            $0.trailing.equalTo(contentView.snp.trailing)
-//            $0.height.equalTo(11)
+        contentLabel.snp.makeConstraints {
+            $0.bottom.equalTo(self)
+            $0.leading.equalTo(dateLabel.snp.trailing).inset(10).priority(998)
+//            $0.trailing.equalTo(self)
+            $0.top.equalTo(mainLabel.snp.bottom)
+
         }
     }
     
