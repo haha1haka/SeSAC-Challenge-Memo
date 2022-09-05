@@ -38,7 +38,7 @@ class MainView: BaseView {
         tableView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalTo(0)
-            $0.height.equalToSuperview()
+            $0.bottom.equalTo(self.safeAreaLayoutGuide)
         }
 
     }

@@ -14,10 +14,7 @@ class Memo: Object {
     @Persisted var content: String
     @Persisted var date: Date
     @Persisted var isFixed: Bool
-    
-    
-    
-    
+
     @Persisted(primaryKey: true) var objectId: ObjectId
     
     convenience init(title: String, content: String, date: Date) {

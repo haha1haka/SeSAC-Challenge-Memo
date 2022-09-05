@@ -12,6 +12,7 @@ enum Color {
 }
 
 
+// 다크모드 일때랑 아닐때 칼라 지정
 let COLOR_BRANDI_PRIMARY: UIColor = {
     if #available(iOS 13, *) {
         return UIColor { (UITraitCollection: UITraitCollection) -> UIColor in
@@ -22,7 +23,7 @@ let COLOR_BRANDI_PRIMARY: UIColor = {
             }
         }
     } else {
-        
-        return UIColor(red: 252/255, green: 204/255, blue: 29/255, alpha: 1)
+        return Color.memoYellow
     }
 }()
+

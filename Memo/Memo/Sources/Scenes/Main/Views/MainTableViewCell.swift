@@ -10,10 +10,6 @@ import SnapKit
 
 class MainTableViewCell: BaseTableViewCell {
     
-    
-    
-    
-    
     lazy var mainLabel: UILabel = {
         let view = UILabel()
         view.font = .systemFont(ofSize: 20, weight: .bold)
@@ -35,19 +31,17 @@ class MainTableViewCell: BaseTableViewCell {
     
     
     
+    
+    
     override func configure() {
-        
         [mainLabel, dateLabel, contentLabel].forEach { contentView.addSubview($0)}
     }
 
 
-
-
-
-
-
+    
+    
+    
     override func setConstraints() {
-        
         
         mainLabel.snp.makeConstraints {
             $0.top.equalTo(self)
@@ -67,7 +61,6 @@ class MainTableViewCell: BaseTableViewCell {
         contentLabel.snp.makeConstraints {
             $0.bottom.equalTo(self)
             $0.leading.equalTo(dateLabel.snp.trailing).inset(10).priority(998)
-//            $0.trailing.equalTo(self)
             $0.top.equalTo(mainLabel.snp.bottom)
 
         }

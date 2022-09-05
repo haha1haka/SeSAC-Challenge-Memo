@@ -16,9 +16,7 @@ extension UIViewController {
         case push
     }
     
-    
     func transition<T: UIViewController>(_ viewController: T, transitionStyle: TransitionStyle = .present) {
-        
         switch transitionStyle {
         case .present:
             self.present(viewController, animated: true)

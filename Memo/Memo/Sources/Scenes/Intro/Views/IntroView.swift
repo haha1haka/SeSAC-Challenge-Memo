@@ -10,7 +10,6 @@ import SnapKit
 
 class IntroView: BaseView {
     
-    
     let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = COLOR_BRANDI_PRIMARY
@@ -18,16 +17,6 @@ class IntroView: BaseView {
         view.layer.masksToBounds = true
         return view
     }()
-    
-
-//    let stackView: UIStackView = {
-//        let view = UIStackView()
-//        view.spacing = 12
-//        view.axis = .vertical
-//        view.backgroundColor = .clear
-////        view.distribution = .
-//        return view
-//    }()
     
     let label: UILabel = {
         let view = UILabel()
@@ -58,15 +47,13 @@ class IntroView: BaseView {
     }()
     
     
-    
-    
-    
-    
+
     override func configure() {
         self.addSubview(containerView)
-//        containerView.addSubview(stackView)
         [label, button].forEach { self.addSubview($0) }
     }
+    
+    
     
     override func setConstraints() {
 
@@ -74,10 +61,6 @@ class IntroView: BaseView {
             $0.width.height.equalTo(300)
             $0.center.equalToSuperview()
         }
-        
-//        stackView.snp.makeConstraints {
-//            $0.edges.equalTo(containerView).inset(10)
-//        }
         
         label.snp.makeConstraints {
             $0.top.equalTo(containerView).offset(10)
@@ -93,8 +76,4 @@ class IntroView: BaseView {
         }
         
     }
-    
-    
-    
-    
 }

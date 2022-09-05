@@ -9,15 +9,12 @@ import UIKit
 import SnapKit
 
 class DetailView: BaseView {
-    
-    
+        
     var textView = CustomUITextView()
-
     
     override func configure() {
         self.addSubview(textView)
     }
-
 
     override func setConstraints() {
         textView.snp.makeConstraints {
