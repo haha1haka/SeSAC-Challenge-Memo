@@ -12,7 +12,7 @@ class BaseView: UIView {
         super.init(frame: frame)
         self.backgroundColor = COLOR_BRANDI_PRIMARY
         configure()
-        setConstraints()
+        configureLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -20,7 +20,7 @@ class BaseView: UIView {
     }
     
     func configure() { }
-    func setConstraints() { }
+    func configureLayout() { }
     
 }
 

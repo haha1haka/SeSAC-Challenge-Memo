@@ -16,7 +16,7 @@ class DetailView: BaseView {
         self.addSubview(textView)
     }
 
-    override func setConstraints() {
+    override func configureLayout() {
         textView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).offset(20)
             $0.leading.trailing.equalTo(self)

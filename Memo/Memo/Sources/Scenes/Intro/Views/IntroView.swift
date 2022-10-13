@@ -55,7 +55,7 @@ class IntroView: BaseView {
     
     
     
-    override func setConstraints() {
+    override func configureLayout() {
 
         containerView.snp.makeConstraints {
             $0.width.height.equalTo(300)

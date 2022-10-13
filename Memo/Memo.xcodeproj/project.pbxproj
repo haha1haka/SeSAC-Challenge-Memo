@@ -27,12 +27,13 @@
 		F4C28B9028C5DC5C008D1200 /* CellStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C28B8F28C5DC5C008D1200 /* CellStatus.swift */; };
 		F4C28B9228C5DC81008D1200 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C28B9128C5DC81008D1200 /* Header.swift */; };
 		F4DB7DB828BF7B940019A93F /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */; };
-		F4DB7DBB28BFAB5A0019A93F /* Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DBA28BFAB5A0019A93F /* Schema.swift */; };
+		F4DB7DBB28BFAB5A0019A93F /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DBA28BFAB5A0019A93F /* Memo.swift */; };
 		F4DB7DBE28BFAB8B0019A93F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = F4DB7DBD28BFAB8B0019A93F /* Realm */; };
 		F4DB7DC028BFAB8B0019A93F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F4DB7DBF28BFAB8B0019A93F /* RealmSwift */; };
 		F4DB7DC328BFACCB0019A93F /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DC228BFACCB0019A93F /* IntroViewController.swift */; };
 		F4DB7DC628BFACDE0019A93F /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DC528BFACDE0019A93F /* IntroView.swift */; };
-		F4DB7DC928BFB1AD0019A93F /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DC828BFB1AD0019A93F /* MemoRepository.swift */; };
+		F4DB7DC928BFB1AD0019A93F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB7DC828BFB1AD0019A93F /* Repository.swift */; };
+		F4DEF5E428F7E58C009D2360 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DEF5E328F7E58C009D2360 /* MainViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,10 +58,11 @@
 		F4C28B8F28C5DC5C008D1200 /* CellStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStatus.swift; sourceTree = "<group>"; };
 		F4C28B9128C5DC81008D1200 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
-		F4DB7DBA28BFAB5A0019A93F /* Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schema.swift; sourceTree = "<group>"; };
+		F4DB7DBA28BFAB5A0019A93F /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		F4DB7DC228BFACCB0019A93F /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		F4DB7DC528BFACDE0019A93F /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
-		F4DB7DC828BFB1AD0019A93F /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
+		F4DB7DC828BFB1AD0019A93F /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		F4DEF5E328F7E58C009D2360 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,8 +108,6 @@
 		F4797CB328BF1F3F002614F5 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
-				F4DB7DC728BFB18B0019A93F /* Manager */,
-				F4DB7DB928BFAB370019A93F /* DataBase */,
 				F4DB7DB628BF7B810019A93F /* Components */,
 				F4797CDE28BF3C87002614F5 /* Enum */,
 				F4797CB728BF1F60002614F5 /* Bases */,
@@ -128,9 +128,9 @@
 		F4797CB528BF1F4E002614F5 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				F4DB7DC128BFACBB0019A93F /* Intro */,
 				F4797CBD28BF28E5002614F5 /* Main */,
 				F4797CBE28BF28EE002614F5 /* Detail */,
+				F4DB7DC128BFACBB0019A93F /* Intro */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -193,6 +193,7 @@
 			children = (
 				F4797CB428BF1F48002614F5 /* Application */,
 				F4797CB528BF1F4E002614F5 /* Scenes */,
+				F4CFE7A928F708E300020ED6 /* Data */,
 				F4797CB328BF1F3F002614F5 /* Commons */,
 			);
 			path = Sources;
@@ -202,7 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				F4797CC028BF2903002614F5 /* MainViewController.swift */,
-				F4797CC628BF2923002614F5 /* Views */,
+				F4797CC628BF2923002614F5 /* View */,
+				F4DEF5E528F7E59F009D2360 /* ViewModel */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -216,13 +218,13 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		F4797CC628BF2923002614F5 /* Views */ = {
+		F4797CC628BF2923002614F5 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				F4797CCB28BF2957002614F5 /* mainView.swift */,
 				F4797CC928BF294E002614F5 /* MainTableViewCell.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		F4797CC728BF2927002614F5 /* Views */ = {
@@ -243,20 +245,21 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		F4CFE7A928F708E300020ED6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F4DB7DBA28BFAB5A0019A93F /* Memo.swift */,
+				F4DB7DC828BFB1AD0019A93F /* Repository.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		F4DB7DB628BF7B810019A93F /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				F4DB7DB728BF7B940019A93F /* CustomUITextView.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		F4DB7DB928BFAB370019A93F /* DataBase */ = {
-			isa = PBXGroup;
-			children = (
-				F4DB7DBA28BFAB5A0019A93F /* Schema.swift */,
-			);
-			path = DataBase;
 			sourceTree = "<group>";
 		};
 		F4DB7DC128BFACBB0019A93F /* Intro */ = {
@@ -276,12 +279,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		F4DB7DC728BFB18B0019A93F /* Manager */ = {
+		F4DEF5E528F7E59F009D2360 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F4DB7DC828BFB1AD0019A93F /* MemoRepository.swift */,
+				F4DEF5E328F7E58C009D2360 /* MainViewModel.swift */,
 			);
-			path = Manager;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,9 +380,10 @@
 				F4DB7DC328BFACCB0019A93F /* IntroViewController.swift in Sources */,
 				F4797CD828BF299F002614F5 /* UIViewController.swift in Sources */,
 				F4DB7DB828BF7B940019A93F /* CustomUITextView.swift in Sources */,
-				F4DB7DC928BFB1AD0019A93F /* MemoRepository.swift in Sources */,
+				F4DEF5E428F7E58C009D2360 /* MainViewModel.swift in Sources */,
+				F4DB7DC928BFB1AD0019A93F /* Repository.swift in Sources */,
 				F4DB7DC628BFACDE0019A93F /* IntroView.swift in Sources */,
-				F4DB7DBB28BFAB5A0019A93F /* Schema.swift in Sources */,
+				F4DB7DBB28BFAB5A0019A93F /* Memo.swift in Sources */,
 				F4797CD228BF297B002614F5 /* BaseView.swift in Sources */,
 				F4797CD628BF2999002614F5 /* NSObject.swift in Sources */,
 				F4797CCA28BF294E002614F5 /* MainTableViewCell.swift in Sources */,

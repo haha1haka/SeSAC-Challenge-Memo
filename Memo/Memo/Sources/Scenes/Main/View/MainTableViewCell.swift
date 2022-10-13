@@ -31,27 +31,26 @@ class MainTableViewCell: BaseTableViewCell {
     
     
     
-    
-    
     override func configure() {
-        [mainLabel, dateLabel, contentLabel].forEach { contentView.addSubview($0)}
+        [mainLabel, dateLabel, contentLabel].forEach { contentView.addSubview($0) }
     }
 
 
-    
-    
-    
+
     override func setConstraints() {
+        
+        let spacing = 10
+        let mainLableHeighRatio = 1.7
         
         mainLabel.snp.makeConstraints {
             $0.top.equalTo(self)
-            $0.leading.equalTo(self).offset(10)
-            $0.trailing.equalTo(self).offset(-10)
-            $0.height.equalTo(self.snp.height).dividedBy(1.7)
+            $0.leading.equalTo(self).offset(spacing)
+            $0.trailing.equalTo(self).offset(-spacing)
+            $0.height.equalTo(self.snp.height).dividedBy(mainLableHeighRatio)
         }
         
         dateLabel.snp.makeConstraints {
-            $0.leading.equalTo(self).offset(10)
+            $0.leading.equalTo(self).offset(spacing)
             $0.trailing.equalTo(contentLabel.snp.leading).priority(999)
             $0.bottom.equalTo(self)
             $0.top.equalTo(mainLabel.snp.bottom)
@@ -60,7 +59,7 @@ class MainTableViewCell: BaseTableViewCell {
         
         contentLabel.snp.makeConstraints {
             $0.bottom.equalTo(self)
-            $0.leading.equalTo(dateLabel.snp.trailing).inset(10).priority(998)
+            $0.leading.equalTo(dateLabel.snp.trailing).inset(spacing).priority(998)
             $0.top.equalTo(mainLabel.snp.bottom)
 
         }

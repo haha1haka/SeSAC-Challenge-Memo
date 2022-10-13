@@ -30,7 +30,7 @@ class MainView: BaseView {
     }
     
     
-    override func setConstraints() {
+    override func configureLayout() {
 
         
         
