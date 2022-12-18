@@ -11,26 +11,19 @@ import RealmSwift
 
 class MainViewController: BaseViewController {
     
-    var searchController = UISearchController(searchResultsController: nil)
     let mainView = MainView()
-    
     override func loadView() {
         self.view = mainView
     }
     
-    override func configure() {
-        configureUITableView() // 테이블뷰 설정
-        configureUISearchController() // UISearchController 설정
-        configureUIToolBar() // 툴바 설장
-        checkIntroScene() // Userdefaults 이용 첫번째 화면 컨트롤
-        configureUINavigationBar()
-    }
-    
     let repository = MemoRepository()
     
+    var searchController = UISearchController(searchResultsController: nil)
+
     // totalMemoObjectArray 기준으로 모든 배열 최신화, totalMemoObjectArray은 willAppear에서 패치
     var totalMemoObjectArray: Results<Memo>! {
         didSet {
+            print("✅✅✅")
             configureTitle(totalMemoObjectArray.count)
             fixedMemoObjectArray = repository.fetchFilter(in: totalMemoObjectArray, isFixed: true)
             nonFixedMemoObjectArray = repository.fetchFilter(in: totalMemoObjectArray, isFixed: false)
@@ -38,7 +31,7 @@ class MainViewController: BaseViewController {
         }
     }
     
-    var fixedMemoObjectArray: Results<Memo>! // 고정된 객체들
+    var fixedMemoObjectArray : Results<Memo>! // 고정된 객체들
     var nonFixedMemoObjectArray: Results<Memo>! // 비고정된 객체들
     var searchedMemoObjectArray: Results<Memo>! //검색된 객체들
     
@@ -49,6 +42,14 @@ class MainViewController: BaseViewController {
         let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
         return isActive && isSearchBarHasText
     }
+    
+    override func configure() {
+        configureUITableView() // 테이블뷰 설정
+        configureUISearchController() // UISearchController 설정
+        configureUIToolBar() // 툴바 설장
+        checkIntroScene() // Userdefaults 이용 첫번째 화면 컨트롤
+        configureUINavigationBar()
+    }
 }
 
 
@@ -57,14 +58,20 @@ class MainViewController: BaseViewController {
 
 
 
-
+extension MainViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        totalMemoObjectArray = repository.fetch() // 패치 
+        
+    }
+}
 
 
 // MARK: - viewWillAppear
 extension MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        totalMemoObjectArray = repository.fetch() // 패치
+        
         mainView.tableView.reloadData()
     }
 }
@@ -271,7 +278,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.className) as? MainTableViewCell else { return UITableViewCell() }
-        
+        print(totalMemoObjectArray)
         let cellStatus = CellStatus.allCases[indexPath.section]
         
         if isFiltering {
@@ -353,7 +360,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     // 업데이트후 리로드
                     self.repository.updatePin(updateObject: (self.searchedMemoObjectArray?[indexPath.row])!, isFiexd: false)
-                    self.mainView.tableView.reloadData()
+                    
                     
                 }
                 pin.image = UIImage(systemName: "pin.slash.fill")
@@ -369,7 +376,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         // 업데이트후 리로드
                         self.repository.updatePin(updateObject: (self.searchedMemoObjectArray?[indexPath.row])!, isFiexd: true)
-                        self.mainView.tableView.reloadData()
+                        
                     }
                 }
                 pin.image = UIImage(systemName: "pin.fill")
@@ -386,6 +393,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 let pin = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
                     // 업데이트후 리로드
                     self.repository.updatePin(updateObject: self.fixedMemoObjectArray[indexPath.row], isFiexd: false)
+                    // 패치
                     self.mainView.tableView.reloadData()
                 }
                 pin.image = UIImage(systemName: "pin.slash.fill")

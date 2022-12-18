@@ -11,7 +11,7 @@ class BaseView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = COLOR_BRANDI_PRIMARY
-        configure()
+        configureHierarchy()
         configureLayout()
     }
     
@@ -19,7 +19,7 @@ class BaseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure() { }
+    func configureHierarchy() { }
     func configureLayout() { }
     
 }

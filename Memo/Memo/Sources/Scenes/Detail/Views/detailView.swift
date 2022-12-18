@@ -12,7 +12,7 @@ class DetailView: BaseView {
         
     var textView = CustomUITextView()
     
-    override func configure() {
+    override func configureHierarchy() {
         self.addSubview(textView)
     }
 

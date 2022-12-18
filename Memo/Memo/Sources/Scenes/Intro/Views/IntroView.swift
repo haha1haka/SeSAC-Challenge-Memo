@@ -48,7 +48,7 @@ class IntroView: BaseView {
     
     
 
-    override func configure() {
+    override func configureHierarchy() {
         self.addSubview(containerView)
         [label, button].forEach { self.addSubview($0) }
     }
