@@ -15,8 +15,8 @@
 
 # Table of Contents
 
-* Tech Stack
-* Simmulation 및 개발 고려사항
+* [Tech Stack](https://github.com/haha1haka/SeSAC-Challenge-Memo#tech-stack)
+* [Simmulation 및 개발 고려사항](https://github.com/haha1haka/SeSAC-Challenge-Memo#simulation)
 
 <br/><br/>
 
@@ -33,7 +33,7 @@
 
 ![77메모](https://user-images.githubusercontent.com/106936018/208289765-52b639d0-ca63-49e8-ae92-320831aaecb8.gif)
 
-### CoreWork
+### CoreWork 및 개발고려사항
 
 * Code Base UI(with Snapkit)
 * 메모 갯수 1000개 넘어갈 경우 3자리마다 콤마 
